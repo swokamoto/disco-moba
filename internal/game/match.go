@@ -55,4 +55,5 @@ type Match struct {
 	CreatedAt    time.Time
 	Winner       TeamID       // empty until match is finished
 	WinCondition WinCondition // empty until match is finished
+	FastMode     bool         // if true, use fast timing and rules
 }

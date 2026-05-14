@@ -1,5 +1,16 @@
 package game
 
+// IsMidLane returns true if the lane is mid.
+func IsMidLane(l Lane) bool {
+	return l == LaneMid
+}
+
+// IsSideLane returns true if the lane is left or right.
+func IsSideLane(l Lane) bool {
+	return l == LaneLeft || l == LaneRight
+}
+
+
 // Lane represents one of the three main lanes.
 type Lane string
 

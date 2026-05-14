@@ -29,9 +29,12 @@ var AllPositions = []Position{
 // CreepPush adds to your team's LaneCreep each wave you are present in a lane,
 // increasing pressure on the opponent's tower even without a direct attack action.
 type Stats struct {
-	Attack    int // damage dealt per wave, hits opponent LaneCreep first, then tower, then morale
-	Mobility  int // max lanes a player can move per wave (linear map, max 2)
-	CreepPush int // creep units added to your team's lane push each wave you are present
+	PlayerAttack int // direct damage to players
+	CreepAttack  int // damage to lane creeps
+	Defense      int // damage absorbed per debuff level
+	DebuffMax    int // max debuff before morale loss
+	Mobility     int // max lanes a player can move per wave (linear map, max 2)
+	CreepPush    int // creep units added to your team's lane push each wave you are present
 }
 
 // BaseStats returns the starting stats for a given position.
@@ -39,15 +42,15 @@ type Stats struct {
 func BaseStats(p Position) Stats {
 	switch p {
 	case PositionCarry:
-		return Stats{Attack: 8, Mobility: 1, CreepPush: 2}
+		return Stats{PlayerAttack: 6, CreepAttack: 2, Defense: 1, DebuffMax: 5, Mobility: 1, CreepPush: 0}
 	case PositionMid:
-		return Stats{Attack: 6, Mobility: 2, CreepPush: 3}
+		return Stats{PlayerAttack: 4, CreepAttack: 4, Defense: 1, DebuffMax: 5, Mobility: 1, CreepPush: 0}
 	case PositionOfflane:
-		return Stats{Attack: 5, Mobility: 1, CreepPush: 4}
+		return Stats{PlayerAttack: 4, CreepAttack: 4, Defense: 3, DebuffMax: 5, Mobility: 2, CreepPush: 0}
 	case PositionSoftSupport:
-		return Stats{Attack: 3, Mobility: 2, CreepPush: 5}
+		return Stats{PlayerAttack: 2, CreepAttack: 4, Defense: 2, DebuffMax: 5, Mobility: 2, CreepPush: 0}
 	case PositionHardSupport:
-		return Stats{Attack: 2, Mobility: 1, CreepPush: 7}
+		return Stats{PlayerAttack: 2, CreepAttack: 4, Defense: 1, DebuffMax: 5, Mobility: 1, CreepPush: 2}
 	default:
 		return Stats{}
 	}
